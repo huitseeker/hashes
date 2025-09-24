@@ -12,7 +12,7 @@
 use blake2::{Blake2xb, Blake2xs};
 use digest::{ExtendableOutput, Update, XofReader};
 use serde::Deserialize;
-use std::fs;
+use std::{fs, path::Path};
 
 #[derive(Debug, Deserialize)]
 struct RawTestVector {
@@ -63,6 +63,11 @@ fn get_blake2xs_test_vectors() -> Vec<TestVector> {
 
 #[test]
 fn blake2xb_test_vectors() {
+    // Ensure test vectors are available
+    if !Path::new("tests/data/blake2xb/blake2xb-kat.json").exists() {
+        panic!("BLAKE2XB test vectors not available. Run 'cargo run --bin ensure-test-vectors' first.");
+    }
+
     for (i, tv) in get_blake2xb_test_vectors().iter().enumerate() {
         println!("Running Blake2xb test vector {}", i + 1);
 
@@ -124,6 +129,11 @@ fn blake2xb_empty_input_various_lengths() {
 
 #[test]
 fn blake2xs_test_vectors() {
+    // Ensure test vectors are available
+    if !Path::new("tests/data/blake2xs/blake2xs-kat.json").exists() {
+        panic!("BLAKE2XS test vectors not available. Run 'cargo run --bin ensure-test-vectors' first.");
+    }
+
     for (i, tv) in get_blake2xs_test_vectors().iter().enumerate() {
         println!("Running Blake2xs test vector {}", i + 1);
 

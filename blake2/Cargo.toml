@@ -1,3 +1,8 @@
+[[bin]]
+name = "ensure-test-vectors"
+path = "../ensure-test-vectors.rs"
+required-features = []
+
 [package]
 name = "blake2"
 version = "0.11.0-rc.2"
